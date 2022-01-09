@@ -10,8 +10,9 @@ type Product {
     unitPrice: Float!
     unitCost: Float!
     stock: Int!
-    tags: [String]
+    tags: String
     image: String!
+    warehouse: ID!
 }
 
 type Warehouse {
@@ -51,9 +52,9 @@ type Delete {
 }
 
 type Mutation {
-    createProduct(sku: ID!, name: String!, description: String!, unitPrice: Float!, unitCost: Float!, stock: Int!, tags: [String]): Product!
+    createProduct(sku: ID!, name: String!, description: String!, unitPrice: Float!, unitCost: Float!, stock: Int!, tags: String): Product!
     deleteProduct(sku: ID!, comments: String!): Delete!
-    updateProduct(sku: ID!, name: String!, description: String!, unitPrice: Float!, unitCost: Float!, stock: Int!, tags: [String]): Product!
+    updateProduct(sku: ID!, name: String!, description: String!, unitPrice: Float!, unitCost: Float!, stock: Int!, tags: String): Product!
     createWarehouse(id: ID!, location: String!): Warehouse!
     deleteWarehouse(id: ID!, comments: String!): Delete!
     addToWarehouse(id: ID!, products: [Product]): Warehouse!
