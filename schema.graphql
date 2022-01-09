@@ -1,0 +1,67 @@
+schema {
+    query: Query
+    mutation: Mutation
+}
+
+type Product {
+    sku: ID!
+    name: String!
+    description: String!
+    unitPrice: Float!
+    unitCost: Float!
+    stock: Int!
+    tags: [String]
+    image: String!
+}
+
+type Warehouse {
+    id: ID!
+    products: [Product]
+    location: String!
+}
+
+type Shipment {
+    id: ID!
+    date: Date!
+    product: Product!
+    quantity: Int!
+    cost: Float!
+}
+
+type Collection {
+    id: ID!
+    name: String!
+    products: [Product]
+}
+
+type Query {
+    products: Product!
+    product(sku: ID!): Product!
+    warehouses: Warehouse!
+    warehouse(id: ID!): Warehouse!
+    shipments: Shipment!
+    shipment(id: ID!): Shipment!
+    collections: Collection!
+    collection(id: ID!): Collection!
+}
+
+type Delete {
+    success: Boolean!
+    errors: [String]
+}
+
+type Mutation {
+    createProduct(sku: ID!, name: String!, description: String!, unitPrice: Float!, unitCost: Float!, stock: Int!, tags: [String]): Product!
+    deleteProduct(sku: ID!, comments: String!): Delete!
+    updateProduct(sku: ID!, name: String!, description: String!, unitPrice: Float!, unitCost: Float!, stock: Int!, tags: [String]): Product!
+    createWarehouse(id: ID!, location: String!): Warehouse!
+    deleteWarehouse(id: ID!, comments: String!): Delete!
+    addToWarehouse(id: ID!, products: [Product]): Warehouse!
+    removeFromWarehouse(id: ID!, skus: [ID]): Warehouse!
+    createShipment(id: ID!, product: Product!, quantity: Int!): Shipment!
+    createCollection(id: ID!, name: String!): Collection!
+    deleteCollection(id: ID!): Delete!
+    addToCollection(id: ID!, products: [Products]): Collection!
+    removeFromCollection(id: ID!, skus: [ID]): Collection!
+}
+
