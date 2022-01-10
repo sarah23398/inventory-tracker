@@ -23,7 +23,7 @@ type Warehouse {
 
 type Shipment {
     id: ID!
-    date: Date!
+    date: String!
     product: Product!
     quantity: Int!
     cost: Float!
@@ -36,13 +36,13 @@ type Collection {
 }
 
 type Query {
-    products: Product!
+    products: [Product]
     product(sku: ID!): Product!
-    warehouses: Warehouse!
+    warehouses: [Warehouse]
     warehouse(id: ID!): Warehouse!
-    shipments: Shipment!
+    shipments: [Shipment]
     shipment(id: ID!): Shipment!
-    collections: Collection!
+    collections: [Collection]
     collection(id: ID!): Collection!
 }
 
@@ -51,18 +51,44 @@ type Delete {
     errors: [String]
 }
 
+input ProductInput {
+    sku: ID
+    name: String
+    description: String
+    unitPrice: Float
+    unitCost: Float
+    stock: Int
+    tags: String
+    image: String
+    warehouse: ID
+}
+
+input WarehouseInput {
+    id: ID
+    skus: [ID]
+}
+
+input ShipmentInput {
+    id: ID!
+    sku: String!
+    quantity: Int!
+}
+
+input CollectionInput {
+    id: ID
+    name: String
+    skus: [ID]
+}
+
 type Mutation {
-    createProduct(sku: ID!, name: String!, description: String!, unitPrice: Float!, unitCost: Float!, stock: Int!, tags: String): Product!
+    createProduct(input: ProductInput!): Product!
     deleteProduct(sku: ID!, comments: String!): Delete!
-    updateProduct(sku: ID!, name: String!, description: String!, unitPrice: Float!, unitCost: Float!, stock: Int!, tags: String): Product!
-    createWarehouse(id: ID!, location: String!): Warehouse!
-    deleteWarehouse(id: ID!, comments: String!): Delete!
-    addToWarehouse(id: ID!, products: [Product]): Warehouse!
-    removeFromWarehouse(id: ID!, skus: [ID]): Warehouse!
-    createShipment(id: ID!, product: Product!, quantity: Int!): Shipment!
-    createCollection(id: ID!, name: String!): Collection!
-    deleteCollection(id: ID!): Delete!
-    addToCollection(id: ID!, products: [Products]): Collection!
-    removeFromCollection(id: ID!, skus: [ID]): Collection!
+    updateProduct(sku: ID!, input: ProductInput!): Product!
+    createWarehouse(input: WarehouseInput!): Warehouse!
+    addToWarehouse(id: ID!, input: WarehouseInput!): Warehouse!
+    removeFromWarehouse(id: ID!, input: WarehouseInput!): Warehouse!
+    createShipment(input: ShipmentInput!): Shipment!
+    addToCollection(id: ID!, input: CollectionInput): Collection!
+    removeFromCollection(id: ID!, input: CollectionInput): Collection!
 }
 
