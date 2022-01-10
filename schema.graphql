@@ -11,7 +11,7 @@ type Product {
     unitCost: Float!
     stock: Int!
     tags: String
-    image: String!
+    image: String
     warehouse: ID!
 }
 

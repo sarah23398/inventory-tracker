@@ -43,7 +43,7 @@ class Product(db.Model):
             "stock": self.stock, 
             "tags": self.tags,
             "image": self.image,
-            "warehouse": self.warehouse,
+            "warehouse": self.warehouse_id,
         }
 
 
