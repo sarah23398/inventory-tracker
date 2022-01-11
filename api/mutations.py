@@ -7,10 +7,16 @@ mutation = ObjectType("Mutation")
 
 @mutation.field("createProduct")
 @convert_kwargs_to_snake_case
-def resolve_create_product(obj, info, sku, name, description, unitPrice, unitCost, stock, tags, warehouse):
+def resolve_create_product(obj, info, input):
     try:
         product = Product(
-            sku=sku, name=name, description=description, unitPrice=unitPrice, unitCost=unitCost, stock=stock, tags=tags, warehouse=warehouse
+            name=input['name'], 
+            description=input['description'], 
+            unit_price=input['unit_price'], 
+            unit_cost=input['unit_cost'], 
+            stock=input['stock'], 
+            tags=input['tags'], 
+            warehouse=input['warehouse']
         )
         db.session.add(product)
         db.session.commit()
@@ -18,9 +24,9 @@ def resolve_create_product(obj, info, sku, name, description, unitPrice, unitCos
             "success": True,
             "product": product.to_dict()
         }
-    except Exception:  # could not add product
+    except Exception as error:  # could not add product
         payload = {
             "success": False,
-            "errors": [f"Product could not be added"]
+            "errors": [str(error)]
         }
     return payload

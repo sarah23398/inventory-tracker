@@ -12,7 +12,7 @@ type Product {
     stock: Int!
     tags: String
     image: String
-    warehouse: ID!
+    warehouse: Warehouse!
 }
 
 type Warehouse {
@@ -52,7 +52,6 @@ type Query {
 }
 
 input ProductInput {
-    sku: ID
     name: String
     description: String
     unitPrice: Float
@@ -64,18 +63,15 @@ input ProductInput {
 }
 
 input WarehouseInput {
-    id: ID
     skus: [ID]
 }
 
 input ShipmentInput {
-    id: ID!
     sku: String!
     quantity: Int!
 }
 
 input CollectionInput {
-    id: ID
     name: String
     skus: [ID]
 }
