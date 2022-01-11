@@ -11,10 +11,14 @@ class Warehouse(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     location = db.Column(db.String)
 
+    # Relationships
+    products = db.relationship('Product', back_populates='warehouse')
+
     def to_dict(self):
         return {
             "id": self.id,
-            "location": self.location
+            "location": self.location,
+            "products": self.products,
         }
 
 
@@ -30,8 +34,8 @@ class Product(db.Model):
     warehouse_id = db.Column(db.Integer, db.ForeignKey(Warehouse.id))
 
     # Relationships
-    warehouse = db.relationship('Warehouse', backref='products')
-    collection = db.relationship('Collection', secondary="contains")
+    warehouse = db.relationship('Warehouse', back_populates='products')
+    collection = db.relationship('Collection', secondary="contains", back_populates="products")
 
     def to_dict(self):
         return {
@@ -50,11 +54,15 @@ class Product(db.Model):
 class Collection(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String)
+    
+    # Relationships
+    products = db.relationship('Product', secondary="contains", back_populates="collection")
 
     def to_dict(self):
         return {
             "id": self.id,
             "name": self.name,
+            "products": self.products,
         }
 
 

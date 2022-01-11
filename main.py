@@ -4,23 +4,12 @@ from ariadne import load_schema_from_path, make_executable_schema, \
     graphql_sync, snake_case_fallback_resolvers, ObjectType
 from ariadne.constants import PLAYGROUND_HTML
 from flask import request, jsonify
-from api.queries import resolve_products, resolve_product, resolve_warehouses, resolve_warehouse, \
-    resolve_shipments, resolve_shipment, resolve_collections, resolve_collection
+from api.queries import query, product, warehouse, shipment, collection
 
-query = ObjectType("Query")
-
-query.set_field("products", resolve_products)
-query.set_field("product", resolve_product)
-query.set_field("warehouses", resolve_warehouses)
-query.set_field("warehouse", resolve_warehouse)
-query.set_field("shipments", resolve_shipments)
-query.set_field("shipment", resolve_shipment)
-query.set_field("collections", resolve_collections)
-query.set_field("collection", resolve_collection)
 
 type_defs = load_schema_from_path("schema.graphql")
 schema = make_executable_schema(
-    type_defs, query, snake_case_fallback_resolvers
+    type_defs, query, product, warehouse, shipment, collection, snake_case_fallback_resolvers
 )
 
 @app.route("/graphql", methods=["GET"])
