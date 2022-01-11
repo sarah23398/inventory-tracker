@@ -63,11 +63,12 @@ input ProductInput {
 }
 
 input WarehouseInput {
-    skus: [ID]
+    location: String!
 }
 
 input ShipmentInput {
-    sku: String!
+    date: String!
+    productSku: ID!
     quantity: Int!
 }
 

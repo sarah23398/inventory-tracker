@@ -71,7 +71,6 @@ class Shipment(db.Model):
     date = db.Column(db.Date)
     product_sku = db.Column(db.Integer, db.ForeignKey(Product.sku))
     quantity = db.Column(db.Integer)
-    cost = db.Column(db.Float)
 
     # Relationship
     product = relationship('Product', backref='shipments')
@@ -79,8 +78,8 @@ class Shipment(db.Model):
     def to_dict(self):
         return {
             "id": self.id,
-            "date": str(self.date.strftime('%d-%m-%Y')),
+            "date": self.date,
             "product": self.product,
             "quantity": self.quantity, 
-            "cost": self.cost,
+            "cost": self.product.unit_cost * self.quantity,
         }
