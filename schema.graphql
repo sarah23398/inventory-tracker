@@ -35,6 +35,11 @@ type Collection {
     products: [Product]
 }
 
+type Delete {
+    success: Boolean!
+    errors: [String]
+}
+
 type Query {
     products: [Product]
     product(sku: ID!): Product!
@@ -44,11 +49,6 @@ type Query {
     shipment(id: ID!): Shipment!
     collections: [Collection]
     collection(id: ID!): Collection!
-}
-
-type Delete {
-    success: Boolean!
-    errors: [String]
 }
 
 input ProductInput {
@@ -80,15 +80,39 @@ input CollectionInput {
     skus: [ID]
 }
 
+type ProductResult {
+    success: Boolean!
+    errors: [String]
+    product: Product!
+}
+
+type WarehouseResult {
+    success: Boolean!
+    errors: [String]
+    warehouse: Warehouse!
+}
+
+type ShipmentResult {
+    success: Boolean!
+    errors: [String]
+    shipment: Shipment!
+}
+
+type CollectionResult {
+    success: Boolean!
+    errors: [String]
+    collection: Collection!
+}
+
 type Mutation {
-    createProduct(input: ProductInput!): Product!
+    createProduct(input: ProductInput!): ProductResult!
     deleteProduct(sku: ID!, comments: String!): Delete!
-    updateProduct(sku: ID!, input: ProductInput!): Product!
-    createWarehouse(input: WarehouseInput!): Warehouse!
-    addToWarehouse(id: ID!, input: WarehouseInput!): Warehouse!
-    removeFromWarehouse(id: ID!, input: WarehouseInput!): Warehouse!
-    createShipment(input: ShipmentInput!): Shipment!
-    addToCollection(id: ID!, input: CollectionInput): Collection!
-    removeFromCollection(id: ID!, input: CollectionInput): Collection!
+    updateProduct(sku: ID!, input: ProductInput!): ProductResult!
+    createWarehouse(input: WarehouseInput!): WarehouseResult!
+    addToWarehouse(id: ID!, input: WarehouseInput!): WarehouseResult!
+    removeFromWarehouse(id: ID!, input: WarehouseInput!): WarehouseResult!
+    createShipment(input: ShipmentInput!): ShipmentResult!
+    addToCollection(id: ID!, input: CollectionInput): CollectionResult!
+    removeFromCollection(id: ID!, input: CollectionInput): CollectionResult!
 }
 
