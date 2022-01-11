@@ -5,11 +5,12 @@ from ariadne import load_schema_from_path, make_executable_schema, \
 from ariadne.constants import PLAYGROUND_HTML
 from flask import request, jsonify
 from api.queries import query, product, warehouse, shipment, collection
+from api.mutations import mutation
 
 
 type_defs = load_schema_from_path("schema.graphql")
 schema = make_executable_schema(
-    type_defs, query, product, warehouse, shipment, collection, snake_case_fallback_resolvers
+    type_defs, query, mutation, product, warehouse, shipment, collection, snake_case_fallback_resolvers
 )
 
 @app.route("/graphql", methods=["GET"])

@@ -1,9 +1,11 @@
-from ariadne import convert_kwargs_to_snake_case
+from ariadne import convert_kwargs_to_snake_case, ObjectType
 
 from api import db
 from api.models import Product, Warehouse, Shipment, Collection
 
+mutation = ObjectType("Mutation")
 
+@mutation.field("createProduct")
 @convert_kwargs_to_snake_case
 def resolve_create_product(obj, info, sku, name, description, unitPrice, unitCost, stock, tags, warehouse):
     try:
@@ -16,7 +18,7 @@ def resolve_create_product(obj, info, sku, name, description, unitPrice, unitCos
             "success": True,
             "product": product.to_dict()
         }
-    except ValueError:  # date format errors
+    except Exception:  # could not add product
         payload = {
             "success": False,
             "errors": [f"Product could not be added"]

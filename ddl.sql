@@ -2,38 +2,30 @@ PRAGMA foreign_keys = off;
 BEGIN TRANSACTION;
 
 INSERT INTO collection (
-                           id,
                            name
                        )
                        VALUES (
-                           1,
                            'food'
                        );
 
 INSERT INTO collection (
-                           id,
                            name
                        )
                        VALUES (
-                           2,
                            'electronics'
                        );
 
 INSERT INTO collection (
-                           id,
                            name
                        )
                        VALUES (
-                           3,
                            'Books'
                        );
 
 INSERT INTO collection (
-                           id,
                            name
                        )
                        VALUES (
-                           4,
                            'Kids'
                        );
 
@@ -75,7 +67,6 @@ INSERT INTO contains (
 
 
 INSERT INTO product (
-                        sku,
                         name,
                         description,
                         unit_price,
@@ -86,7 +77,6 @@ INSERT INTO product (
                         warehouse_id
                     )
                     VALUES (
-                        1,
                         'Rubik''s Cube',
                         '3D combination puzzle',
                         12.99,
@@ -98,7 +88,6 @@ INSERT INTO product (
                     );
 
 INSERT INTO product (
-                        sku,
                         name,
                         description,
                         unit_price,
@@ -109,7 +98,6 @@ INSERT INTO product (
                         warehouse_id
                     )
                     VALUES (
-                        2,
                         'Treadmill',
                         'Exercise machine',
                         150.0,
@@ -121,7 +109,6 @@ INSERT INTO product (
                     );
 
 INSERT INTO product (
-                        sku,
                         name,
                         description,
                         unit_price,
@@ -132,7 +119,6 @@ INSERT INTO product (
                         warehouse_id
                     )
                     VALUES (
-                        3,
                         'Eyeglasses',
                         'Designer vision glasses',
                         79.0,
@@ -144,7 +130,6 @@ INSERT INTO product (
                     );
 
 INSERT INTO product (
-                        sku,
                         name,
                         description,
                         unit_price,
@@ -155,7 +140,6 @@ INSERT INTO product (
                         warehouse_id
                     )
                     VALUES (
-                        4,
                         'Cat Painting',
                         'Oil painting of a cat by a fireplace',
                         30.0,
@@ -167,7 +151,6 @@ INSERT INTO product (
                     );
 
 INSERT INTO product (
-                        sku,
                         name,
                         description,
                         unit_price,
@@ -178,7 +161,6 @@ INSERT INTO product (
                         warehouse_id
                     )
                     VALUES (
-                        5,
                         'Atomic Habits by James Clear',
                         'Self help book, create tiny changes and see remarkable results',
                         19.99,
@@ -190,7 +172,6 @@ INSERT INTO product (
                     );
 
 INSERT INTO product (
-                        sku,
                         name,
                         description,
                         unit_price,
@@ -201,7 +182,6 @@ INSERT INTO product (
                         warehouse_id
                     )
                     VALUES (
-                        6,
                         'Mario Party Superstars',
                         'Video game for Nintendo Switch',
                         39.99,
@@ -214,47 +194,37 @@ INSERT INTO product (
 
 
 INSERT INTO warehouse (
-                          id,
                           location
                       )
                       VALUES (
-                          1,
                           'london'
                       );
 
 INSERT INTO warehouse (
-                          id,
                           location
                       )
                       VALUES (
-                          2,
                           'Toronto'
                       );
 
 INSERT INTO warehouse (
-                          id,
                           location
                       )
                       VALUES (
-                          3,
                           'Montreal'
                       );
 
 INSERT INTO warehouse (
-                          id,
                           location
                       )
                       VALUES (
-                          4,
                           'Paris'
                       );
 
 INSERT INTO warehouse (
-                          id,
                           location
                       )
                       VALUES (
-                          5,
                           'New York City'
                       );
 

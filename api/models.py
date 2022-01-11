@@ -8,7 +8,7 @@ association_table = db.Table('contains', db.Model.metadata,
 
 
 class Warehouse(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     location = db.Column(db.String)
 
     # Relationships
@@ -23,7 +23,7 @@ class Warehouse(db.Model):
 
 
 class Product(db.Model):
-    sku = db.Column(db.Integer, primary_key=True)
+    sku = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.String)
     description = db.Column(db.String)
     unit_price = db.Column(db.Float)
@@ -52,7 +52,7 @@ class Product(db.Model):
 
 
 class Collection(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.String)
     
     # Relationships
@@ -67,7 +67,7 @@ class Collection(db.Model):
 
 
 class Shipment(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     date = db.Column(db.Date)
     product_sku = db.Column(db.Integer, db.ForeignKey(Product.sku))
     quantity = db.Column(db.Integer)
