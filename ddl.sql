@@ -5,14 +5,14 @@ INSERT INTO collection (
                            name
                        )
                        VALUES (
-                           'food'
+                           'Food'
                        );
 
 INSERT INTO collection (
                            name
                        )
                        VALUES (
-                           'electronics'
+                           'Electronics'
                        );
 
 INSERT INTO collection (
@@ -197,7 +197,7 @@ INSERT INTO warehouse (
                           location
                       )
                       VALUES (
-                          'london'
+                          'London'
                       );
 
 INSERT INTO warehouse (

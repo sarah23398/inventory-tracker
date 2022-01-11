@@ -16,7 +16,7 @@ def resolve_create_product(obj, info, input):
             unit_cost=input['unit_cost'], 
             stock=input['stock'], 
             tags=input['tags'], 
-            warehouse=input['warehouse']
+            warehouse_id=input['warehouse_id']
         )
         db.session.add(product)
         db.session.commit()

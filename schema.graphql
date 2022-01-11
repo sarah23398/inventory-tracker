@@ -59,7 +59,7 @@ input ProductInput {
     stock: Int
     tags: String
     image: String
-    warehouse: ID
+    warehouse_id: ID
 }
 
 input WarehouseInput {
