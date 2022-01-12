@@ -93,3 +93,60 @@ def resolve_update_product(obj, info, sku, input):
         }
     return payload
 
+@mutation.field("addToCollection")
+@convert_kwargs_to_snake_case
+def resolve_add_to_collection(obj, info, collection_id, sku):
+    try:
+        product = Product.query.get(sku)
+        collection = Collection.query.get(collection_id)
+        collection.products.append(product)
+        db.session.commit()
+        payload = {
+            "success": True,
+            "collection": collection.to_dict()
+        }
+    except Exception as error:  # could not add to collection
+        payload = {
+            "success": False,
+            "errors":  [str(error)],
+        }
+    return payload
+
+@mutation.field("addToCollection")
+@convert_kwargs_to_snake_case
+def resolve_add_to_collection(obj, info, collection_id, sku):
+    try:
+        product = Product.query.get(sku)
+        collection = Collection.query.get(collection_id)
+        collection.products.append(product)
+        db.session.commit()
+        payload = {
+            "success": True,
+            "collection": collection.to_dict()
+        }
+    except Exception as error:  # could not add to collection
+        payload = {
+            "success": False,
+            "errors":  [str(error)],
+        }
+    return payload
+
+@mutation.field("removeFromCollection")
+@convert_kwargs_to_snake_case
+def resolve_add_to_collection(obj, info, collection_id, sku):
+    try:
+        product = Product.query.get(sku)
+        collection = Collection.query.get(collection_id)
+        collection.products.remove(product)
+        db.session.commit()
+        payload = {
+            "success": True,
+            "collection": collection.to_dict()
+        }
+    except Exception as error:  # could not remove from collection
+        payload = {
+            "success": False,
+            "errors":  [str(error)],
+        }
+    return payload
+

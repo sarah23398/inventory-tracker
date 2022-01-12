@@ -72,11 +72,6 @@ input ShipmentInput {
     quantity: Int!
 }
 
-input CollectionInput {
-    name: String
-    skus: [ID]
-}
-
 type ProductResult {
     success: Boolean!
     errors: [String]
@@ -106,10 +101,8 @@ type Mutation {
     deleteProduct(sku: ID!, comments: String!): Delete!
     updateProduct(sku: ID!, input: ProductInput!): ProductResult!
     createWarehouse(input: WarehouseInput!): WarehouseResult!
-    addToWarehouse(id: ID!, input: WarehouseInput!): WarehouseResult!
-    removeFromWarehouse(id: ID!, input: WarehouseInput!): WarehouseResult!
     createShipment(input: ShipmentInput!): ShipmentResult!
-    addToCollection(id: ID!, input: CollectionInput): CollectionResult!
-    removeFromCollection(id: ID!, input: CollectionInput): CollectionResult!
+    addToCollection(collection_id: ID!, sku: ID!): CollectionResult!
+    removeFromCollection(collection_id: ID!, sku: ID!): CollectionResult!
 }
 
