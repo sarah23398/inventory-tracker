@@ -150,3 +150,17 @@ def resolve_add_to_collection(obj, info, collection_id, sku):
         }
     return payload
 
+@mutation.field("deleteProduct")
+@convert_kwargs_to_snake_case
+def resolve_delete_product(obj, info, sku):
+    try:
+        product = Product.query.get(sku)
+        db.session.delete(product)
+        db.session.commit()
+        payload = { "success": True }
+    except Exception as error:  # could not delete product
+        payload = {
+            "success": False,
+            "errors":  [str(error)],
+        }
+    return payload

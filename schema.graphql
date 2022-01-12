@@ -98,7 +98,7 @@ type CollectionResult {
 
 type Mutation {
     createProduct(input: ProductInput!): ProductResult!
-    deleteProduct(sku: ID!, comments: String!): Delete!
+    deleteProduct(sku: ID!): Delete!
     updateProduct(sku: ID!, input: ProductInput!): ProductResult!
     createWarehouse(input: WarehouseInput!): WarehouseResult!
     createShipment(input: ShipmentInput!): ShipmentResult!
