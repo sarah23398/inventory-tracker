@@ -40,17 +40,6 @@ type Delete {
     errors: [String]
 }
 
-type Query {
-    products: [Product]
-    product(sku: ID!): Product!
-    warehouses: [Warehouse]
-    warehouse(id: ID!): Warehouse!
-    shipments: [Shipment]
-    shipment(id: ID!): Shipment!
-    collections: [Collection]
-    collection(id: ID!): Collection!
-}
-
 input ProductInput {
     name: String
     description: String
@@ -59,7 +48,7 @@ input ProductInput {
     stock: Int
     tags: String
     image: String
-    warehouse_id: ID
+    warehouseId: ID
 }
 
 input WarehouseInput {
@@ -96,13 +85,31 @@ type CollectionResult {
     collection: Collection!
 }
 
+input ProductFilter {
+    minStock: Int
+    maxStock: Int
+    tags: String
+}
+
+type Query {
+    products: [Product]
+    product(sku: ID!): Product!
+    filterProduct(filter: ProductFilter!): [Product]
+    warehouses: [Warehouse]
+    warehouse(id: ID!): Warehouse!
+    shipments: [Shipment]
+    shipment(id: ID!): Shipment!
+    collections: [Collection]
+    collection(id: ID!): Collection!
+}
+
 type Mutation {
     createProduct(input: ProductInput!): ProductResult!
     deleteProduct(sku: ID!): Delete!
     updateProduct(sku: ID!, input: ProductInput!): ProductResult!
     createWarehouse(input: WarehouseInput!): WarehouseResult!
     createShipment(input: ShipmentInput!): ShipmentResult!
-    addToCollection(collection_id: ID!, sku: ID!): CollectionResult!
-    removeFromCollection(collection_id: ID!, sku: ID!): CollectionResult!
+    addToCollection(collectionId: ID!, sku: ID!): CollectionResult!
+    removeFromCollection(collectionId: ID!, sku: ID!): CollectionResult!
 }
 

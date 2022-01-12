@@ -59,3 +59,43 @@ def resolve_collection(obj, info, id):
     collection = Collection.query.get(id)
     payload = collection.to_dict()
     return payload
+
+@query.field("filterProduct")
+@convert_kwargs_to_snake_case
+def resolve_product_filter(obj, info, filter):
+    products = []
+    
+    range = [None, None]
+    if 'min_stock' in filter and 'max_stock' in filter:
+        range[0] = filter['min_stock']
+        range[1] = filter['max_stock']
+    elif 'min_stock' in filter:
+        range[0] = filter['min_stock']
+    elif 'max_stock' in filter:
+        range[1] = filter['max_stock']
+    
+    filter_tags = []
+    if 'tags' in filter:
+        filter_tags = filter['tags'].split(', ')
+
+    for product in Product.query.all():
+        insert = True
+        if range[0] is not None and range[1] is not None:
+            if product.stock < range[0] or product.stock > range[1]:
+                insert = False
+        elif range[0] is not None:
+            if product.stock < range[0]:
+                insert = False
+        elif range[1] is not None:
+            if product.stock > range[1]:
+                insert = False
+        
+        product_tags = product.tags.split(', ')
+        for tag in filter_tags:
+            if tag not in product_tags:
+                insert = False
+        
+        if insert:
+            products.append(product)
+    payload = [p.to_dict() for p in products]
+    return payload
