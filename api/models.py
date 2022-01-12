@@ -50,6 +50,11 @@ class Product(db.Model):
             "warehouse": self.warehouse,
         }
 
+    def update(self, input):
+        for key, value in input.items():
+            if hasattr(self, key):
+                setattr(self, key, value)
+
 
 class Collection(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)

@@ -67,9 +67,29 @@ def resolve_create_warehouse(obj, info, input):
             "success": True,
             "warehouse": shipment.to_dict()
         }
-    except Exception as error:  # could not add warehouse
+    except Exception as error:  # could not add shipment
         payload = {
             "success": False,
             "errors": [str(error)]
         }
     return payload
+
+@mutation.field("updateProduct")
+@convert_kwargs_to_snake_case
+def resolve_update_product(obj, info, sku, input):
+    try:
+        product = Product.query.get(sku)
+        for key, value in input.items():
+            setattr(product, key, value)
+        db.session.commit()
+        payload = {
+            "success": True,
+            "product": product.to_dict()
+        }
+    except Exception as error:  # could not update product
+        payload = {
+            "success": False,
+            "errors":  [str(error)],
+        }
+    return payload
+
