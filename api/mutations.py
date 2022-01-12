@@ -54,18 +54,26 @@ def resolve_create_warehouse(obj, info, input):
 
 @mutation.field("createShipment")
 @convert_kwargs_to_snake_case
-def resolve_create_warehouse(obj, info, input):
+def resolve_create_shipment(obj, info, input):
     try:
         shipment = Shipment(
             date = date.fromisoformat(input['date']),
             product_sku = input['product_sku'],
             quantity = input['quantity']
         )
+        product = Product.query.get(input['product_sku'])
+        product.stock -= input['quantity']
+        if product.stock < 0: raise ValueError
         db.session.add(shipment)
         db.session.commit()
         payload = {
             "success": True,
-            "warehouse": shipment.to_dict()
+            "shipment": shipment.to_dict()
+        }
+    except ValueError:
+        payload = {
+            "success": False,
+            "errors": ["Not enough stock to make shipment with this quantity."]
         }
     except Exception as error:  # could not add shipment
         payload = {
