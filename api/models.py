@@ -1,5 +1,5 @@
 from main import db
-from sqlalchemy.orm import backref, relationship
+from sqlalchemy.orm import relationship
 
 association_table = db.Table('contains', db.Model.metadata,
     db.Column('id', db.Integer, db.ForeignKey('collection.id')),
@@ -35,7 +35,7 @@ class Product(db.Model):
 
     # Relationships
     warehouse = db.relationship('Warehouse', back_populates='products')
-    collection = db.relationship('Collection', secondary="contains", back_populates="products")
+    collections = db.relationship('Collection', secondary="contains", back_populates="products")
     shipments = db.relationship('Shipment', back_populates="product")
 
     def to_dict(self):
@@ -49,7 +49,7 @@ class Product(db.Model):
             "tags": self.tags,
             "image": self.image,
             "warehouse": self.warehouse,
-            "collection": self.collection,
+            "collections": self.collections,
             "shipments": self.shipments,
         }
 
@@ -59,7 +59,7 @@ class Collection(db.Model):
     name = db.Column(db.String)
     
     # Relationships
-    products = db.relationship('Product', secondary="contains", back_populates="collection")
+    products = db.relationship('Product', secondary="contains", back_populates="collections")
 
     def to_dict(self):
         return {
