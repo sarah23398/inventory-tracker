@@ -56,12 +56,13 @@ def resolve_create_warehouse(obj, info, input):
 @convert_kwargs_to_snake_case
 def resolve_create_shipment(obj, info, input):
     try:
+        product = Product.query.get(input['product_sku'])
         shipment = Shipment(
             date = date.fromisoformat(input['date']),
             product_sku = input['product_sku'],
-            quantity = input['quantity']
+            quantity = input['quantity'],
+            cost = product.unit_cost * input['quantity'],
         )
-        product = Product.query.get(input['product_sku'])
         product.stock -= input['quantity']
         if product.stock < 0: raise ValueError
         db.session.add(shipment)
@@ -103,29 +104,10 @@ def resolve_update_product(obj, info, sku, input):
 
 @mutation.field("addToCollection")
 @convert_kwargs_to_snake_case
-def resolve_add_to_collection(obj, info, collection_id, sku):
+def resolve_add_to_collection(obj, info, id, sku):
     try:
         product = Product.query.get(sku)
-        collection = Collection.query.get(collection_id)
-        collection.products.append(product)
-        db.session.commit()
-        payload = {
-            "success": True,
-            "collection": collection.to_dict()
-        }
-    except Exception as error:  # could not add to collection
-        payload = {
-            "success": False,
-            "errors":  [str(error)],
-        }
-    return payload
-
-@mutation.field("addToCollection")
-@convert_kwargs_to_snake_case
-def resolve_add_to_collection(obj, info, collection_id, sku):
-    try:
-        product = Product.query.get(sku)
-        collection = Collection.query.get(collection_id)
+        collection = Collection.query.get(id)
         collection.products.append(product)
         db.session.commit()
         payload = {
@@ -141,10 +123,10 @@ def resolve_add_to_collection(obj, info, collection_id, sku):
 
 @mutation.field("removeFromCollection")
 @convert_kwargs_to_snake_case
-def resolve_add_to_collection(obj, info, collection_id, sku):
+def resolve_add_to_collection(obj, info, id, sku):
     try:
         product = Product.query.get(sku)
-        collection = Collection.query.get(collection_id)
+        collection = Collection.query.get(id)
         collection.products.remove(product)
         db.session.commit()
         payload = {

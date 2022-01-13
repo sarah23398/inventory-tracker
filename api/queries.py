@@ -14,8 +14,8 @@ def resolve_products(obj, info):
     payload = products
     return payload
 
-@convert_kwargs_to_snake_case
 @query.field("product")
+@convert_kwargs_to_snake_case
 def resolve_product(obj, info, sku):
     product = Product.query.get(sku)
     payload = product.to_dict()

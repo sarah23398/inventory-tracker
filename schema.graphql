@@ -13,6 +13,8 @@ type Product {
     tags: String
     image: String
     warehouse: Warehouse!
+    collection: Collection
+    shipments: [Shipment]
 }
 
 type Warehouse {
@@ -30,8 +32,8 @@ type Shipment {
 }
 
 type Collection {
-    id: ID!
-    name: String!
+    id: ID
+    name: String
     products: [Product]
 }
 
@@ -49,6 +51,7 @@ input ProductInput {
     tags: String
     image: String
     warehouseId: ID
+    collectionId: ID
 }
 
 input WarehouseInput {

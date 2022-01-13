@@ -2,7 +2,7 @@ from main import db
 from sqlalchemy.orm import backref, relationship
 
 association_table = db.Table('contains', db.Model.metadata,
-    db.Column('collection_id', db.Integer, db.ForeignKey('collection.id')),
+    db.Column('id', db.Integer, db.ForeignKey('collection.id')),
     db.Column('sku', db.Integer, db.ForeignKey('product.sku'))
 )
 
@@ -36,6 +36,7 @@ class Product(db.Model):
     # Relationships
     warehouse = db.relationship('Warehouse', back_populates='products')
     collection = db.relationship('Collection', secondary="contains", back_populates="products")
+    shipments = db.relationship('Shipment', back_populates="product")
 
     def to_dict(self):
         return {
@@ -48,6 +49,8 @@ class Product(db.Model):
             "tags": self.tags,
             "image": self.image,
             "warehouse": self.warehouse,
+            "collection": self.collection,
+            "shipments": self.shipments,
         }
 
 
@@ -71,9 +74,10 @@ class Shipment(db.Model):
     date = db.Column(db.Date)
     product_sku = db.Column(db.Integer, db.ForeignKey(Product.sku))
     quantity = db.Column(db.Integer)
+    cost = db.Column(db.Float)
 
     # Relationship
-    product = relationship('Product', backref='shipments')
+    product = relationship('Product', back_populates='shipments')
 
     def to_dict(self):
         return {
@@ -81,5 +85,5 @@ class Shipment(db.Model):
             "date": self.date,
             "product": self.product,
             "quantity": self.quantity, 
-            "cost": self.product.unit_cost * self.quantity,
+            "cost": self.cost,
         }

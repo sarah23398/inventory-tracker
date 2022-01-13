@@ -30,7 +30,7 @@ INSERT INTO collection (
                        );
 
 INSERT INTO contains (
-                         collection_id,
+                         id,
                          sku
                      )
                      VALUES (
@@ -39,7 +39,7 @@ INSERT INTO contains (
                      );
 
 INSERT INTO contains (
-                         collection_id,
+                         id,
                          sku
                      )
                      VALUES (
@@ -48,7 +48,7 @@ INSERT INTO contains (
                      );
 
 INSERT INTO contains (
-                         collection_id,
+                         id,
                          sku
                      )
                      VALUES (
@@ -57,7 +57,7 @@ INSERT INTO contains (
                      );
 
 INSERT INTO contains (
-                         collection_id,
+                         id,
                          sku
                      )
                      VALUES (
