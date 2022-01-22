@@ -1,5 +1,4 @@
 # inventory-tracker
-Created for Shopify Intern Backend Challenge
 
 # How to run:
 1. Create virtual environment with Python3
